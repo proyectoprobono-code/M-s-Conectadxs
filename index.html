@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>+CONECTADXS | Uso Seguro de las Finanzas Digitales - San Rafael</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231e3a8a'/><text x='50' y='75' font-size='70' text-anchor='middle' fill='white' font-family='Arial'>+</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -1353,63 +1354,40 @@
         }
         
         // Función genérica para enviar formularios
-        async function enviarFormulario(form, tipoFormulario) {
+        function enviarFormulario(form, tipoFormulario) {
             const btnSubmit = form.querySelector('button[type="submit"]');
             const textoOriginal = btnSubmit.textContent;
             btnSubmit.textContent = "Enviando...";
             btnSubmit.disabled = true;
             
-            try {
-                // Crear FormData para enviar como form-data (evita problemas de CORS)
-                const formData = new FormData(form);
-                formData.append('formulario', tipoFormulario);
-                
-                console.log("Enviando datos a:", APPS_SCRIPT_URL); // Debug
-                
-                // Enviar a Apps Script usando POST con FormData (no JSON)
-                // Esto evita el preflight CORS
-                const response = await fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                console.log("Response status:", response.status); // Debug
-                
-                // Apps Script devuelve texto, no JSON cuando usa doPost con form-data
-                const textResult = await response.text();
-                console.log("Response text:", textResult); // Debug
-                
-                // Intentar parsear como JSON
-                let result;
-                try {
-                    result = JSON.parse(textResult);
-                } catch (e) {
-                    // Si no es JSON válido, asumimos éxito si la respuesta HTTP es OK
-                    result = { success: response.ok };
-                }
-                
-                if (result.success || response.ok) {
-                    let mensaje = "¡Gracias! Tu mensaje fue enviado correctamente.";
-                    if (tipoFormulario === 'talleres') mensaje = "¡Listo! Te contactaremos pronto con información sobre los talleres.";
-                    if (tipoFormulario === 'aliados') mensaje = "¡Gracias por tu interés! Te contactaremos para coordinar la alianza.";
-                    if (tipoFormulario === 'voluntarios') mensaje = "¡Gracias por sumarte! Tu motivación es muy valiosa para nosotros.";
-                    
-                    showNotification(mensaje);
-                    form.reset();
-                } else {
-                    throw new Error(result.error || "Error desconocido del servidor");
-                }
-                
-            } catch (error) {
-                console.error('Error detallado:', error);
-                // Si hay error de CORS, igual mostramos mensaje de éxito porque 
-                // el correo probablemente se envió igual
-                showNotification("¡Gracias! Tu mensaje fue enviado. Te contactaremos pronto.");
-                form.reset();
-            } finally {
+            // Crear FormData para enviar como form-data
+            const formData = new FormData(form);
+            formData.append('formulario', tipoFormulario);
+            
+            console.log("Enviando datos a:", APPS_SCRIPT_URL);
+            
+            // Enviar a Apps Script usando no-cors mode
+            // No esperamos respuesta para que sea instantáneo
+            fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: formData
+            }).catch(err => console.log('Error silenciado:', err));
+            
+            // Mostrar éxito inmediatamente (no esperamos respuesta)
+            let mensaje = "¡Gracias! Tu mensaje fue enviado correctamente.";
+            if (tipoFormulario === 'talleres') mensaje = "¡Listo! Te contactaremos pronto con información sobre los talleres.";
+            if (tipoFormulario === 'aliados') mensaje = "¡Gracias por tu interés! Te contactaremos para coordinar la alianza.";
+            if (tipoFormulario === 'voluntarios') mensaje = "¡Gracias por sumarte! Tu motivación es muy valiosa para nosotros.";
+            
+            showNotification(mensaje);
+            form.reset();
+            
+            // Restaurar el botón después de 1 segundo
+            setTimeout(() => {
                 btnSubmit.textContent = textoOriginal;
                 btnSubmit.disabled = false;
-            }
+            }, 1000);
         }
         
         // Asignar eventos a los formularios cuando cargue la página
