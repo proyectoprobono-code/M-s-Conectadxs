@@ -1337,8 +1337,8 @@
     </footer>
 
     <script>
-        // URL de tu Apps Script (ACTUALIZADA con la nueva implementación)
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwAVQhAxEz9yrfUC6XE6jo4x8-oUH9lIJhj5Mttj8P0-JIqphDA0bWQ388wyHSUqdJv9Q/exec";
+        // URL de tu Apps Script (NUEVA IMPLEMENTACIÓN 18:04)
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyFEUAhnwL22O_GrD81lQbfcWgem0UyhrkUhueYB4p_tCnftEcoIxWNs6gTqtinvqcbqw/exec";
         
         // Función para mostrar notificación
         function showNotification(message, isError = false) {
@@ -1378,6 +1378,8 @@
                     datos.motivacion = formData.get('motivacion');
                 }
                 
+                console.log("Enviando datos:", datos); // Debug
+                
                 // Enviar a Apps Script
                 const response = await fetch(APPS_SCRIPT_URL, {
                     method: 'POST',
@@ -1387,7 +1389,10 @@
                     body: JSON.stringify(datos)
                 });
                 
+                console.log("Response status:", response.status); // Debug
+                
                 const result = await response.json();
+                console.log("Response result:", result); // Debug
                 
                 if (result.success) {
                     let mensaje = "¡Gracias! Tu mensaje fue enviado correctamente.";
@@ -1398,11 +1403,11 @@
                     showNotification(mensaje);
                     form.reset();
                 } else {
-                    throw new Error(result.error || "Error desconocido");
+                    throw new Error(result.error || "Error desconocido del servidor");
                 }
                 
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Error detallado:', error);
                 showNotification("Hubo un problema al enviar. Intentá de nuevo o contactanos por WhatsApp.", true);
             } finally {
                 btnSubmit.textContent = textoOriginal;
