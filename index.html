@@ -22,14 +22,15 @@
             --slate-400: #94a3b8;
             --slate-200: #e2e8f0;
             --slate-100: #f1f5f9;
+            --slate-50: #f8fafc;
             --blue-900: #1e3a8a;
             --blue-800: #1e40af;
             --blue-700: #1d4ed8;
             --blue-600: #2563eb;
             --blue-100: #dbeafe;
             --blue-50: #eff6ff;
-            --ice-1: #f0f9ff;
-            --ice-2: #e0f2fe;
+            --ice-1: #f1f5f9;
+            --ice-2: #e2e8f0;
             --ice-3: #f8fafc;
             --amber-500: #f59e0b;
             --amber-600: #d97706;
@@ -45,7 +46,7 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
             color: var(--slate-800);
-            background: linear-gradient(180deg, var(--ice-3) 0%, var(--ice-1) 50%, var(--ice-2) 100%);
+            background: linear-gradient(180deg, var(--slate-50) 0%, var(--slate-100) 50%, var(--slate-200) 100%);
             background-attachment: fixed;
             font-weight: 400;
             min-height: 100vh;
@@ -310,13 +311,13 @@
         }
 
         .section-blue {
-            background: linear-gradient(180deg, var(--blue-50) 0%, var(--ice-2) 100%);
+            background: linear-gradient(180deg, var(--slate-100) 0%, var(--slate-200) 100%);
             border-top: 1px solid rgba(30, 58, 138, 0.05);
             border-bottom: 1px solid rgba(30, 58, 138, 0.05);
         }
 
         .section-ice {
-            background: linear-gradient(180deg, var(--ice-1) 0%, var(--white) 50%, var(--ice-1) 100%);
+            background: linear-gradient(180deg, var(--white) 0%, var(--slate-50) 50%, var(--slate-100) 100%);
         }
 
         h2 {
@@ -616,7 +617,7 @@
         /* Ayuda responsive */
         .ayuda-section {
             text-align: center;
-            background: linear-gradient(180deg, var(--ice-1) 0%, var(--blue-50) 100%);
+            background: linear-gradient(180deg, var(--slate-100) 0%, var(--slate-50) 100%);
             padding: 4rem 1.5rem;
         }
 
@@ -1109,7 +1110,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: radial-gradient(circle at 1px 1px, rgba(30, 58, 138, 0.08) 1px, transparent 0);
+            background-image: radial-gradient(circle at 1px 1px, rgba(100, 116, 139, 0.06) 1px, transparent 0);
             background-size: 40px 40px;
             pointer-events: none;
             z-index: -1;
