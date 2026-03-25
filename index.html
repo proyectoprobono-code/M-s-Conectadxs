@@ -1099,6 +1099,37 @@
             box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
         }
 
+        /* ========== EFECTOS VISUALES PROFESIONALES ========== */
+        
+        /* Patrón de puntos sutil en el fondo */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 1px 1px, rgba(30, 58, 138, 0.08) 1px, transparent 0);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* Sombras más elegantes para tarjetas */
+        .info-card, .service-card, .form-card {
+            box-shadow: 
+                0 4px 6px -1px rgba(30, 58, 138, 0.05),
+                0 2px 4px -2px rgba(30, 58, 138, 0.05),
+                0 0 0 1px rgba(30, 58, 138, 0.02);
+        }
+        
+        .info-card:hover, .service-card:hover, .form-card:hover {
+            box-shadow: 
+                0 20px 25px -5px rgba(30, 58, 138, 0.1),
+                0 8px 10px -6px rgba(30, 58, 138, 0.1),
+                0 0 0 1px rgba(30, 58, 138, 0.05);
+        }
+
         /* ========== ANIMACIONES SUTILES ========== */
         
         /* Animación de entrada para el hero badge */
