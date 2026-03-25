@@ -46,7 +46,7 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
             color: var(--slate-800);
-            background: linear-gradient(180deg, #fafaf9 0%, #f5f5f4 50%, #e7e5e4 100%);
+            background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 30%, #cbd5e1 60%, #475569 100%);
             background-attachment: fixed;
             font-weight: 400;
             min-height: 100vh;
@@ -311,13 +311,13 @@
         }
 
         .section-blue {
-            background: linear-gradient(180deg, #f5f5f4 0%, #e7e5e4 100%);
-            border-top: 1px solid rgba(68, 64, 60, 0.05);
-            border-bottom: 1px solid rgba(68, 64, 60, 0.05);
+            background: linear-gradient(180deg, #e0f2fe 0%, #f0f9ff 50%, #e2e8f0 100%);
+            border-top: 1px solid rgba(30, 58, 138, 0.08);
+            border-bottom: 1px solid rgba(30, 58, 138, 0.08);
         }
 
         .section-ice {
-            background: linear-gradient(180deg, #ffffff 0%, #fafaf9 50%, #f5f5f4 100%);
+            background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 50%, #e2e8f0 100%);
         }
 
         h2 {
@@ -617,7 +617,7 @@
         /* Ayuda responsive */
         .ayuda-section {
             text-align: center;
-            background: linear-gradient(180deg, #f5f5f4 0%, #fafaf9 100%);
+            background: linear-gradient(180deg, #e2e8f0 0%, #cbd5e1 50%, #475569 100%);
             padding: 4rem 1.5rem;
         }
 
@@ -1110,10 +1110,31 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: radial-gradient(circle at 1px 1px, rgba(120, 113, 108, 0.04) 1px, transparent 0);
+            background-image: radial-gradient(circle at 1px 1px, rgba(15, 23, 42, 0.06) 1px, transparent 0);
             background-size: 40px 40px;
             pointer-events: none;
             z-index: -1;
+        }
+        
+        /* Línea separadora elegante entre secciones */
+        section {
+            position: relative;
+        }
+        
+        section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(71, 85, 105, 0.3) 50%, transparent 100%);
+        }
+        
+        section:last-of-type::after,
+        .talleres-section::after,
+        .emergencias::after {
+            display: none;
         }
         
         /* Sombras más elegantes para tarjetas */
